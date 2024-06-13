@@ -1,46 +1,44 @@
-#Função que realiza a conversão da variável 'valor' de decimal inteira para algarismos romanos 
-def int_to_roman(num):
-    inteiros = [
-        1000, 900, 500, 400, 
-        100, 90, 50, 40,
-        10, 9, 5, 4, 
-        1
-        ]
-    romanos = [
-        'M', 'CM', 'D', 'CD',
-        'C', 'XC', 'L', 'XL',
-        'X', 'IX', 'V', 'IV',
-        'I'
-        ]
-    num_roman = ''
-    x = 0 
+def inteiro_para_romano(num):
+    
+    mil = [
+        "", "M", 
+        "MM", "MMM"
+    ]
+    cem = [
+        "", "C", "CC", "CCC", 
+        "CD", "D", "DC", 
+        "DCC", "DCCC", 
+        "CM"
+    ]
+    dez = [
+        "", "X", "XX", "XXX",
+        "XL", "L", "LX", 
+        "LXX", "LXXX", 
+        "XC"
+    ]
+    uni = [
+        "", "I", "II", "III", 
+        "IV", "V", "VI", 
+        "VII", "VIII", 
+        "IX"
+    ]
 
-    while num > 0: 
-        for _ in range(num // inteiros[x]):
-            num_roman += romanos[x]
-            num -=inteiros[x]
-        x += 1
-    return num_roman
+    return mil[num // 1000] + cem[(num % 1000) // 100] + dez[(num % 100) // 10] + uni[num % 10]
 
-#Função que realiza a conversão da variável 'valor' de algarismos romanos para decimal inteira 
-def roman_to_int(rom):
-    roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
-    num_int = 0
-    for x in range(len(rom)):
-        if x > 0 and roman_dict[rom[x]] > roman_dict[rom[x - 1]]:
-            num_int += roman_dict[rom[x]] - 2 * roman_dict[rom[x - 1]]
+def romano_para_inteiro(s):
+    
+    romano_inteiro = { 'I': 1, 'V' : 5, 'X' : 10, 'L' : 50, 'C' : 100, 'D' : 500, 'M' : 1000 }
+    total = 0
+    x = 0
+
+    for x in range( len(s) ):
+        if x + 1 < len(s) and romano_inteiro[s[x]] < romano_inteiro[s[x + 1]]:
+            total -= romano_inteiro[s[x]]
+
         else:
-            num_int += roman_dict[rom[x]]
-    return num_int
+            total += romano_inteiro[s[x]]
 
-#Função onde a variável 'valor' será convertida e escrita na tela 
-def convert(valor):
-    if valor.isdigit():
-        valor = int(valor)
-        print('O número decimal inteiro {} convertido para algarismos romanos é: {} '.format(valor, int_to_roman(valor)))
-    else:  
-        print('Os algarismos romanos {} convertido para seu valor decimal inteiro é: {} '.format(valor, roman_to_int(valor)))
+    return total
 
-#Usuário digita o valor (romano ou decimal) e o programa armazena na variável 'valor'
-valor = input('Digite um número decimal inteiro ou um número em algarismos romanos para realizar a conversão: ')
-convert(valor)
+print( inteiro_para_romano(2006) )
+print( romano_para_inteiro('MMVI') )
