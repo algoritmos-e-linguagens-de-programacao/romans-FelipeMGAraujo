@@ -40,5 +40,5 @@ def roman_to_int(s):
 
     return total
 
-print( inteiro_para_romano(2006) )
-print( romano_para_inteiro('MMVI') )
+#print( inteiro_para_romano(2006) )
+#print( romano_para_inteiro('MMVI') )
